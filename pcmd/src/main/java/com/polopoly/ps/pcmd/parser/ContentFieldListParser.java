@@ -16,6 +16,7 @@ import com.polopoly.ps.pcmd.field.content.NameField;
 import com.polopoly.ps.pcmd.field.content.NumericalContentIdField;
 import com.polopoly.ps.pcmd.field.content.PaddingField;
 import com.polopoly.ps.pcmd.field.content.SecurityParentField;
+import com.polopoly.ps.pcmd.field.content.UnversionedContentIdField;
 import com.polopoly.ps.pcmd.field.content.VersionCountField;
 import com.polopoly.ps.pcmd.field.content.VersionField;
 import com.polopoly.ps.pcmd.field.content.WorkflowField;
@@ -49,6 +50,8 @@ public class ContentFieldListParser implements Parser<List<Field>> {
     public static final String INPUT_TEMPLATE = "inputtemplate";
 
     public static final String NUMERICAL_ID = "numericalid";
+
+    public static final String UNVERSIONED_ID = "unversionedid";
 
     public static final String LOCKER = "locker";
 
@@ -100,6 +103,8 @@ public class ContentFieldListParser implements Parser<List<Field>> {
             return new ContentIdField();
         } else if (field.equals(NUMERICAL_ID)) {
             return new NumericalContentIdField();
+        } else if (field.equals(UNVERSIONED_ID)) {
+            return new UnversionedContentIdField();
         } else if (field.equals(LOCKER)) {
             return new LockerField();
         } else if (field.equals(COMMITTED)) {
