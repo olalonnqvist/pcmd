@@ -26,6 +26,8 @@ public class SearchParameters implements Parameters {
 
     private static final String COMPONENTVALUE = "componentvalue";
 
+    private static final String COMPONENTVALUELIKE = "componentvaluelike";
+
     private static final String INPUTTEMPLATE = "inputtemplate";
 
     private static final String BATCH_SIZE = "batchsize";
@@ -45,6 +47,8 @@ public class SearchParameters implements Parameters {
     private ContentId contentRefValue;
 
     private String componentValue;
+
+    private boolean componentValueLike;
 
     private Integer major;
 
@@ -78,6 +82,14 @@ public class SearchParameters implements Parameters {
 
     public String getComponentValue() {
         return componentValue;
+    }
+
+    public boolean isComponentValueLike() {
+        return componentValueLike;
+    }
+
+    public void setComponentValueLike(boolean componentValueLike) {
+        this.componentValueLike = componentValueLike;
     }
 
     public void setMajor(Integer major) {
@@ -128,6 +140,8 @@ public class SearchParameters implements Parameters {
         } catch (NotProvidedException e) {
         }
 
+        setComponentValueLike(args.getFlag(COMPONENTVALUELIKE, false));
+
         try {
             setContentRefValue(args.getOption(CONTENTREFVALUE,
                     new ContentIdParser(context)));
@@ -171,6 +185,11 @@ public class SearchParameters implements Parameters {
         help
                 .addOption(COMPONENTVALUE, null,
                         "Restrict search to objects with [component] set to this value.");
+        help
+                .addOption(
+                        COMPONENTVALUELIKE,
+                        new BooleanParser(),
+                        "Whether to use LIKE search instead of equals when matching componentvalue, defaults to false.");
         help
                 .addOption(
                         CONTENTREF,

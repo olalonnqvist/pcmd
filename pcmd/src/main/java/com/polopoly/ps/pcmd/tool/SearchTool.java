@@ -42,8 +42,10 @@ public class SearchTool implements Tool<SearchParameters> {
             String componentValue = parameters.getComponentValue();
 
             if (component != null && componentValue != null) {
+                final boolean componentValueLike = parameters.isComponentValueLike();
                 searchExpr = add(searchExpr, new ComponentValue(component
-                        .getGroup(), component.getComponent(), componentValue));
+                        .getGroup(), component.getComponent(), componentValue,
+                        (componentValueLike ? SearchExpression.LIKE : SearchExpression.EQUALS)));
             } else {
                 searchExpr = add(searchExpr, new ComponentValue(component
                         .getGroup(), component.getComponent(),
